@@ -41,10 +41,10 @@ TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source source/ui source/data source/install source/nx source/nx/ipc source/util
 DATA		:=	data
-INCLUDES	:=	include include/ui include/data include/install include/nx include/nx/ipc include/util include/Plutonium/Plutonium/Output-switch/include
-APP_TITLE	:=	Awoo Installer
-APP_AUTHOR	:=	Huntereb & Behemoth
-APP_VERSION	:=	1.3.4
+INCLUDES	:=	include/usbhsfs/include include include/ui include/data include/install include/nx include/nx/ipc include/util include/Plutonium/Plutonium/Output-switch/include
+APP_TITLE	:=	Tinleaf Installer
+APP_AUTHOR	:=	Adubbz and Xortroll
+APP_VERSION	:=	1.4.1
 ROMFS		:=	romfs
 
 #---------------------------------------------------------------------------------
@@ -63,13 +63,13 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++17 -Wall -Werror
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:=  -lcurl -lz -lmbedtls -lmbedcrypto -lmbedx509 -lminizip -lnx -lstdc++fs -lzzip -lpu -lfreetype -lSDL2_mixer -lopusfile -lopus -lmodplug -lmpg123 -lvorbisidec -lSDL2 -lc -logg -lSDL2_ttf -lSDL2_gfx -lSDL2_image -lwebp -lpng -ljpeg `sdl2-config --libs` `freetype-config --libs` -lzstd
+LIBS	:=  -lusbhsfs -lcurl -lz -lmbedtls -lmbedcrypto -lmbedx509 -lminizip -lnx -lstdc++fs -lzzip -lpu -lfreetype -lSDL2_mixer -lopusfile -lopus -lmodplug -lmpg123 -lvorbisidec -lSDL2 -lc -logg -lSDL2_ttf -lSDL2_gfx -lSDL2_image -lwebp -lpng -ljpeg `sdl2-config --libs` `freetype-config --libs` -lzstd
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(LIBNX) $(CURDIR)/include/Plutonium/Plutonium/Output
+LIBDIRS	:= $(PORTLIBS) $(LIBNX) $(CURDIR)/include/Plutonium/Plutonium/Output $(CURDIR)/include/usbhsfs
 
 
 #---------------------------------------------------------------------------------
@@ -158,6 +158,9 @@ endif
 ifneq ($(ROMFS),)
 	export NROFLAGS += --romfsdir=$(CURDIR)/$(ROMFS)
 endif
+
+
+$(info $$NROFLAGS is [${NROFLAGS}])
 
 .PHONY: $(BUILD) clean all
 

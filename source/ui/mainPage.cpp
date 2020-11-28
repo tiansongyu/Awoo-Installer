@@ -7,6 +7,7 @@
 #include "util/lang.hpp"
 #include "sigInstall.hpp"
 #include "data/buffered_placeholder_writer.hpp"
+#include "nx/usbhdd.h"
 
 #define COLOR(hex) pu::ui::Color::FromHex(hex)
 
@@ -28,10 +29,10 @@ namespace inst::ui {
             tin::data::NUM_BUFFER_SEGMENTS = 128;
         }
         if (!updateFinished && (!inst::config::autoUpdate || inst::util::getIPAddress() == "1.0.0.127")) updateFinished = true;
-        if (!updateFinished && menuLoaded && inst::config::updateInfo.size()) {
+        /*if (!updateFinished && menuLoaded && inst::config::updateInfo.size()) {
             updateFinished = true;
             optionsPage::askToUpdate(inst::config::updateInfo);
-        }
+        }*/
     }
 
     MainPage::MainPage() : Layout::Layout() {
@@ -63,9 +64,9 @@ namespace inst::ui {
         this->usbInstallMenuItem = pu::ui::elm::MenuItem::New("main.menu.usb"_lang);
         this->usbInstallMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->usbInstallMenuItem->SetIcon("romfs:/images/icons/usb-port.png");
-        this->sigPatchesMenuItem = pu::ui::elm::MenuItem::New("main.menu.sig"_lang);
+        this->sigPatchesMenuItem = pu::ui::elm::MenuItem::New("main.menu.hdd"_lang);
         this->sigPatchesMenuItem->SetColor(COLOR("#FFFFFFFF"));
-        this->sigPatchesMenuItem->SetIcon("romfs:/images/icons/wrench.png");
+        this->sigPatchesMenuItem->SetIcon("romfs:/images/icons/usb-port.png");
         this->settingsMenuItem = pu::ui::elm::MenuItem::New("main.menu.set"_lang);
         this->settingsMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->settingsMenuItem->SetIcon("romfs:/images/icons/settings.png");
@@ -120,8 +121,14 @@ namespace inst::ui {
     }
 
     void MainPage::sigPatchesMenuItem_Click() {
-        sig::installSigPatches();
-    }
+            if(nx::hdd::count() && nx::hdd::rootPath()) {
+                mainApp->sdinstPage->drawMenuItems(true, nx::hdd::rootPath());
+                mainApp->sdinstPage->menu->SetSelectedIndex(0);
+                mainApp->LoadLayout(mainApp->sdinstPage);
+            } else {
+                inst::ui::mainApp->CreateShowDialog("main.hdd.title"_lang, "main.hdd.notfound"_lang, {"common.ok"_lang}, true);
+            }    
+        }
 
     void MainPage::exitMenuItem_Click() {
         mainApp->FadeOut();
@@ -133,10 +140,10 @@ namespace inst::ui {
     }
 
     void MainPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::Touch Pos) {
-        if (((Down & KEY_PLUS) || (Down & KEY_MINUS) || (Down & KEY_B)) && mainApp->IsShown()) {
-            mainApp->FadeOut();
-            mainApp->Close();
-        }
+        //if (((Down & KEY_PLUS) || (Down & KEY_MINUS) || (Down & KEY_B)) && mainApp->IsShown()) {
+        //    mainApp->FadeOut();
+        //   mainApp->Close();
+        //}
         if ((Down & KEY_A) || (Up & KEY_TOUCH)) {
             switch (this->optionMenu->GetSelectedIndex()) {
                 case 0:
@@ -155,7 +162,7 @@ namespace inst::ui {
                     MainPage::settingsMenuItem_Click();
                     break;
                 case 5:
-                    MainPage::exitMenuItem_Click();
+                    //MainPage::exitMenuItem_Click();
                     break;
                 default:
                     break;
