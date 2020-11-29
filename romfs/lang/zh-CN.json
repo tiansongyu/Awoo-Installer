@@ -150,7 +150,7 @@
         "menu_items": {
             "ignore_firm": "忽略游戏最低固件版本要求",
             "nca_verify": "安装前验证 NCA 签名",
-            "boost_mode": "安装时启用\"增强模式\"",
+            "boost_mode": "安装时启用\"超频模式\"",
             "ask_delete": "安装后询问文件删除",
             "auto_update": "自动检查 Tinleaf Installer 更新",
             "gay_option": "基友模式",
