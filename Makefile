@@ -44,7 +44,7 @@ DATA		:=	data
 INCLUDES	:=	include/usbhsfs/include include include/ui include/data include/install include/nx include/nx/ipc include/util include/Plutonium/Plutonium/Output-switch/include
 APP_TITLE	:=	Tinleaf Installer
 APP_AUTHOR	:=	Adubbz and Xortroll
-APP_VERSION	:=	1.4.1
+APP_VERSION	:=	1.4.3
 ROMFS		:=	romfs
 
 #---------------------------------------------------------------------------------
@@ -55,9 +55,9 @@ ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 			$(ARCH) $(DEFINES)
 
-CFLAGS	+=	$(INCLUDE) -D__SWITCH__ -Wall -Werror #-D__DEBUG__ -DNXLINK_DEBUG
+CFLAGS	+=	$(INCLUDE) -D__SWITCH__ -Wall #-Werror #-D__DEBUG__ -DNXLINK_DEBUG
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++17 -Wall -Werror
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -std=gnu++17 -Wall #-Werror
 
 
 ASFLAGS	:=	-g $(ARCH)

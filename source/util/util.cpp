@@ -34,9 +34,9 @@ namespace inst::util {
     }
 
     void deinitApp () {
-        //nx::hdd::exit();
-        //socketExit();
-        //awoo_usbCommsExit();
+        nx::hdd::exit();
+        socketExit();
+        awoo_usbCommsExit();
     }
 
     void initInstallServices() {
@@ -262,7 +262,7 @@ namespace inst::util {
     }
     
     int getUsbState() {
-        u32 usbState = 0;
+        UsbState usbState = UsbState_Detached;
         usbDsGetState(&usbState);
         return usbState;
     }
@@ -300,7 +300,7 @@ namespace inst::util {
     
    std::vector<std::string> checkForAppUpdate () {
         try {
-            std::string jsonData = inst::curl::downloadToBuffer("https://api.github.com/repos/Huntereb/Awoo-Installer/releases/latest", 0, 0, 1000L);
+            std::string jsonData = inst::curl::downloadToBuffer("https://api.github.com/repos/blawar/tinleaf/releases/latest", 0, 0, 1000L);
             if (jsonData.size() == 0) return {};
             nlohmann::json ourJson = nlohmann::json::parse(jsonData);
             if (ourJson["tag_name"].get<std::string>() != inst::config::appVersion) {
