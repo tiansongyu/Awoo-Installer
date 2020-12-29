@@ -4,11 +4,11 @@
 
 using namespace pu::ui::elm;
 namespace inst::ui {
-    class sdInstPage : public pu::ui::Layout
+    class HDInstPage : public pu::ui::Layout
     {
         public:
-            sdInstPage();
-            PU_SMART_CTOR(sdInstPage)
+            HDInstPage();
+            PU_SMART_CTOR(HDInstPage)
             pu::ui::elm::Menu::Ref menu;
             void startInstall();
             void onInput(u64 Down, u64 Up, u64 Held, pu::ui::Touch Pos);

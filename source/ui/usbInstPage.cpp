@@ -3,7 +3,6 @@
 #include "util/util.hpp"
 #include "util/config.hpp"
 #include "util/lang.hpp"
-#include "util/usb_util.hpp"
 #include "usbInstall.hpp"
 
 
@@ -13,38 +12,41 @@ namespace inst::ui {
     extern MainApplication *mainApp;
 
     usbInstPage::usbInstPage() : Layout::Layout() {
-        this->SetBackgroundColor(COLOR("#670000FF"));
-        if (std::filesystem::exists(inst::config::appDir + "/background.png")) this->SetBackgroundImage(inst::config::appDir + "/background.png");
-        else this->SetBackgroundImage("romfs:/images/background.jpg");
-        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#170909FF"));
-        this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#17090980"));
-        this->botRect = Rectangle::New(0, 660, 1280, 60, COLOR("#17090980"));
-        if (inst::config::gayMode) {
-            this->titleImage = Image::New(-113, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(367, 49, "v" + inst::config::appVersion, 22);
-        }
-        else {
+			this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#00000080"));
+			this->SetBackgroundColor(COLOR("#000000FF"));
+			this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#000000FF"));
+			this->botRect = Rectangle::New(0, 659, 1280, 61, COLOR("#000000FF"));
+
+        if (std::filesystem::exists(inst::config::appDir + "/images/background.jpg")) 
+            this->SetBackgroundImage(inst::config::appDir + "/images/background.jpg");
+        else
+            this->SetBackgroundImage("romfs:/images/background.jpg");
+
+        if (std::filesystem::exists(inst::config::appDir + "/images/logo.png")) 
+            this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/logo.png"));
+        else 
             this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(480, 49, "v" + inst::config::appVersion, 22);
-        }
-        this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
+
+        //this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
         this->pageInfoText = TextBlock::New(10, 109, "", 30);
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
         this->butText = TextBlock::New(10, 678, "", 24);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), 84, (506 / 84));
         this->menu->SetOnFocusColor(COLOR("#00000033"));
-        this->menu->SetScrollbarColor(COLOR("#17090980"));
+        this->menu->SetScrollbarColor(COLOR("#1A1919FF"));
         this->infoImage = Image::New(460, 332, "romfs:/images/icons/usb-connection-waiting.png");
         this->Add(this->topRect);
         this->Add(this->infoRect);
         this->Add(this->botRect);
         this->Add(this->titleImage);
-        this->Add(this->appVersionText);
+        //this->Add(this->appVersionText);
         this->Add(this->butText);
         this->Add(this->pageInfoText);
         this->Add(this->menu);
         this->Add(this->infoImage);
+                                        this->titleImage->SetVisible(!inst::config::gayMode);
+
     }
 
     void usbInstPage::drawMenuItems(bool clearItems) {
@@ -109,7 +111,6 @@ namespace inst::ui {
 
     void usbInstPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::Touch Pos) {
         if (Down & KEY_B) {
-            tin::util::USBCmdManager::SendExitCmd();
             mainApp->LoadLayout(mainApp->mainPage);
         }
         if ((Down & KEY_A) || (Up & KEY_TOUCH)) {

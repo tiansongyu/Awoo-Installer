@@ -4,10 +4,19 @@
             "sd": "Установка из SD-карты",
             "net": "Установка по сети",
             "usb": "Установка через USB",
+			"hdd": "Install over USB HDD",
             "sig": "Управление sig-patches",
             "set": "Настройки",
             "exit": "Выход"
         },
+		"theme": {
+            "title": "Use Theme",
+            "desc": "Press OK to quit Tinwoo or Cancel to continue.\n\nThemes will activate the next time you start Tinwoo."
+		},
+		"hdd": {
+			"title": "USB HDD",
+			"notfound": "USB HDD is not connected."
+		},
         "net": {
             "title": "Сетевое подключение недоступно",
             "desc": "Удостоверьтесь что авиарежим отключён и вы подключены к локальной сети."
@@ -25,7 +34,7 @@
         },
         "applet": {
             "title": "Applet Mode не поддерживается",
-            "desc": "В Tinleaf Installer могут возникать проблемы когда и если он запущен в режиме апплета.\nЕсли у вас есть трудности, пожалуйста запустите приложение через установленную игру\n(зажмите R при запуске)!"
+            "desc": "В TinWoo Installer могут возникать проблемы когда и если он запущен в режиме апплета.\nЕсли у вас есть трудности, пожалуйста запустите приложение через установленную игру\n(зажмите R при запуске)!"
         },
         "buttons": "\ue0e0 Выбрать    \ue0e1 Выход"
     },
@@ -33,7 +42,7 @@
         "net": {
             "help": {
                 "title": "Помощь",
-                "desc": "Файлы могут быть установленны удалённо из другого вашего устройства используя такие утилиты как\nNS-USBloader в режиме Tinfoil. Чтобы передать файлы на Switch откройте одно из этих замечательных\nприложений на вашем ПК или мобильном устройстве, введите IP адрес вашего Switch (отображается на экране),\nвыберите файлы и затем загрузите их в вашу консоль! Если приложение которое вы используете не позволяет\nвыбрать определённый формат файла, попробуйте изменить его расширение.\nTinleaf Installer не чувствителен\nк расширениям файла при установке по сети!\n\nЕсли вы ничего не поняли, просто скопируйте файлы на SD-карту и выберите в главном меню опцию\n\"Установка из SD-карты\"!"
+                "desc": "Файлы могут быть установленны удалённо из другого вашего устройства используя такие утилиты как\nNS-USBloader в режиме Tinfoil. Чтобы передать файлы на Switch откройте одно из этих замечательных\nприложений на вашем ПК или мобильном устройстве, введите IP адрес вашего Switch (отображается на экране),\nвыберите файлы и затем загрузите их в вашу консоль! Если приложение которое вы используете не позволяет\nвыбрать определённый формат файла, попробуйте изменить его расширение.\nTinWoo Installer не чувствителен\nк расширениям файла при установке по сети!\n\nЕсли вы ничего не поняли, просто скопируйте файлы на SD-карту и выберите в главном меню опцию\n\"Установка из SD-карты\"!"
             },
             "src": {
                 "title": "Откуда будем устанавливать?",
@@ -70,6 +79,18 @@
             "delete_desc": "После того, как файлы установлены, они больше не требуются.",
             "buttons": "\ue0e0 Выбрать файл   \ue0e3 Выбрать всё   \ue0ef Установить файл(ы)   \ue0e2 Помощь   \ue0e1 Отмена "
         },
+        "hd": {
+            "help": {
+                "title": "Help",
+                "desc": "Copy your NSP, NSZ, XCI, or XCZ files to your hard drive, browse to and\nselect the ones you want to install, then press the Plus button."
+            },
+            "top_info": "Select the files you want to install, then press the Plus button!",
+            "source_string": " from hard drive",
+            "delete_info": " installed\nDelete it from the hard drive?",
+            "delete_info_multi": " files installed successfully!\nDelete them from the hard drive?",
+            "delete_desc": "The original files aren't needed anymore after they've been installed",
+            "buttons": "\ue0e0 Select File    \ue0e3 Select All    \ue0ef Install File(s)    \ue0e2 Help    \ue0e1 Cancel"
+        },
         "usb": {
             "help": {
                 "title": "Помощь",
@@ -103,7 +124,7 @@
         },
         "nca_verify": {
             "title": "Обнаружена неверная NCA подпись!",
-            "desc": "Неверно подписанное программное обеспечение должно устанавливаться исключительно из проверенных источников!\nФайлы содержащие перепакованные картриджи и разблокировщики DLC будут всегда приводить к показу этого\nпредупреждения. Вы можете отключить эту проверку в настройках Tinleaf Installer\n Вы уверены что хотите продолжить установку?",
+            "desc": "Неверно подписанное программное обеспечение должно устанавливаться исключительно из проверенных источников!\nФайлы содержащие перепакованные картриджи и разблокировщики DLC будут всегда приводить к показу этого\nпредупреждения. Вы можете отключить эту проверку в настройках TinWoo Installer\n Вы уверены что хотите продолжить установку?",
             "opt1": "Да, я понимаю все риски",
             "error": "Запрашиваемый NCA неверно подписан: "
         },
@@ -127,7 +148,7 @@
         "backup_failed": "Не удалось сделать копию Hekate patches.ini! Всё равно установить?",
         "backup_failed_desc": "Игнорируйте это предупреждение если вы не исользуете Hekate.",
         "download_failed": "Не удалось загрузить signature patches",
-        "download_failed_desc": "Возможно вы указали неправильный источник в настройках Tinleaf Installer,\nили же сервер просто недоступен.",
+        "download_failed_desc": "Возможно вы указали неправильный источник в настройках TinWoo Installer,\nили же сервер просто недоступен.",
         "version_text2": "Ваши signature patches были обновлены до HOS версии ",
         "install_complete": "Установка завершена!",
         "complete_desc": "Презапустите вашу консоль чтобы изменения вступили в силу",
@@ -147,10 +168,11 @@
             "boost_mode": "Включить \"boost-режим\" во время установки",
             "ask_delete": "Спрашивать разрешения удалить исходные файлы после установки",
             "auto_update": "Автоматически проверять наличие обновлений",
-            "gay_option": "Убрать аниме",
+            "gay_option": "Использовать тему",
+            "useSound": "Use sound notifications during installs",
             "sig_url": "URL для скачивания Signature patches: ",
             "language": "Язык: ",
-            "check_update": "Проверить наличие обновлений Tinleaf Installer",
+            "check_update": "Проверить наличие обновлений TinWoo Installer",
             "credits": "Благодарности"
         },
         "nca_warn": {
@@ -161,28 +183,28 @@
         "sig_hint": "Введите URL откуда следует брать Signature Patches",
         "update": {
             "title": "Доступно обновление",
-            "desc0": "Tinleaf Installer ",
+            "desc0": "TinWoo Installer ",
             "desc1": " уже доступен! Готовы обновиться?",
             "opt0": "Обновление",
-            "top_info": "Обновление Tinleaf Installer ",
-            "bot_info": "Загрузка Tinleaf Installer ",
-            "bot_info2": "Извлечение Tinleaf Installer ",
+            "top_info": "Обновление TinWoo Installer ",
+            "bot_info": "Загрузка TinWoo Installer ",
+            "bot_info2": "Извлечение TinWoo Installer ",
             "complete": "Обновление завершено!",
             "failed": "Обновление провалилось!",
             "end_desc": "Сейчас приложение будет закрыто.",
             "title_check_fail": "Обновлений нет",
-            "desc_check_fail": "Вы уже используете последнюю версию Tinleaf Installer!"
+            "desc_check_fail": "Вы уже используете последнюю версию TinWoo Installer!"
         },
         "credits": {
             "title": "Выражаем благодарность следующим людям:",
-            "desc": "- HookedBehemoth for A LOT of contributions\n- Adubbz and other contributors for Tinfoil\n- XorTroll for Plutonium and Goldleaf\n- blawar (wife strangulator) and nicoboss for NSZ support\n- The kind folks at the AtlasNX Discuck (or at least some of them)\n- The also kind folks at the RetroNX Discuck (of no direct involvement)\n- namako8982 for the Momiji art\n- TheXzoron for being a baka"
+            "desc": "TinWoo - MrDude\nTinleaf - BlaWar\nAwoo Installer - Huntereb\nHard Drive Support - DarkMatterCore\n\n\nhttps://github.com/Huntereb/Awoo-Installer\nhttps://github.com/blawar/tinleaf\nhttps://github.com/DarkMatterCore/libusbhsfs\n\nThanks for testing - LyuboA"
         },
         "language": {
         "title": "Выбор языка",
         "desc": "После изменения языка приложение будет закрыто. Нажмите B для отмены.",
         "system_language": "Системный"
         },
-        "title": "Меняйте настройки Tinleaf Installer!",
+        "title": "Меняйте настройки TinWoo Installer!",
         "buttons": "\ue0e0 Выбрать/Изменить    \ue0e1 Отмена"
     },
     "common": {

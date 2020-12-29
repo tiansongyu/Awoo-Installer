@@ -27,7 +27,7 @@ SOFTWARE.
 #include <ctime>
 #include <thread>
 #include <memory>
-#include "sdInstall.hpp"
+#include "HDInstall.hpp"
 #include "install/install_nsp.hpp"
 #include "install/install_xci.hpp"
 #include "install/sdmc_xci.hpp"
@@ -46,7 +46,7 @@ namespace inst::ui {
     extern MainApplication *mainApp;
 }
 
-namespace nspInstStuff {
+namespace nspInstStuff_B {
 
     void installNspFromFile(std::vector<std::filesystem::path> ourTitleList, int whereToInstall)
     {
@@ -68,7 +68,7 @@ namespace nspInstStuff {
         try
         {
             for (titleItr = 0; titleItr < ourTitleList.size(); titleItr++) {
-                inst::ui::instPage::setTopInstInfoText("inst.info_page.top_info0"_lang + inst::util::shortenString(ourTitleList[titleItr].filename().string(), 40, true) + "inst.sd.source_string"_lang);
+                inst::ui::instPage::setTopInstInfoText("inst.info_page.top_info0"_lang + inst::util::shortenString(ourTitleList[titleItr].filename().string(), 40, true) + "inst.hd.source_string"_lang);
                 std::unique_ptr<tin::install::Install> installTask;
 
                 if (ourTitleList[titleItr].extension() == ".xci" || ourTitleList[titleItr].extension() == ".xcz") {
@@ -116,20 +116,19 @@ namespace nspInstStuff {
             inst::ui::instPage::setInstInfoText("inst.info_page.complete"_lang);
             inst::ui::instPage::setInstBarPerc(100);
             std::string audioPath = "";
-            
-            if (inst::config::useSound) {
             	
+            if (inst::config::useSound) {
             	if (std::filesystem::exists(inst::config::appDir + "/sounds/YIPPEE.WAV")) {
             		audioPath = (inst::config::appDir + "/sounds/YIPPEE.WAV");
             		}
             		else {
             			audioPath = "romfs:/audio/ameizing.mp3";
             		}
-            	std::thread audioThread(inst::util::playAudio,audioPath);
+            	std::thread audioThread(inst::util::playAudio,audioPath);				
 
               if (ourTitleList.size() > 1) {
                   if (inst::config::deletePrompt) {
-                      if(inst::ui::mainApp->CreateShowDialog(std::to_string(ourTitleList.size()) + "inst.sd.delete_info_multi"_lang, "inst.sd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) {
+                      if(inst::ui::mainApp->CreateShowDialog(std::to_string(ourTitleList.size()) + "inst.hd.delete_info_multi"_lang, "inst.hd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) {
                           for (long unsigned int i = 0; i < ourTitleList.size(); i++) {
                               if (std::filesystem::exists(ourTitleList[i])) std::filesystem::remove(ourTitleList[i]);
                           }
@@ -137,7 +136,7 @@ namespace nspInstStuff {
                   } else inst::ui::mainApp->CreateShowDialog(std::to_string(ourTitleList.size()) + "inst.info_page.desc0"_lang, Language::GetRandomMsg(), {"common.ok"_lang}, true);
               } else {
                   if (inst::config::deletePrompt) {
-                      if(inst::ui::mainApp->CreateShowDialog(inst::util::shortenString(ourTitleList[0].filename().string(), 32, true) + "inst.sd.delete_info"_lang, "inst.sd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) if (std::filesystem::exists(ourTitleList[0])) std::filesystem::remove(ourTitleList[0]);
+                      if(inst::ui::mainApp->CreateShowDialog(inst::util::shortenString(ourTitleList[0].filename().string(), 32, true) + "inst.hd.delete_info"_lang, "inst.hd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) if (std::filesystem::exists(ourTitleList[0])) std::filesystem::remove(ourTitleList[0]);
                   } else inst::ui::mainApp->CreateShowDialog(inst::util::shortenString(ourTitleList[0].filename().string(), 42, true) + "inst.info_page.desc1"_lang, Language::GetRandomMsg(), {"common.ok"_lang}, true);
               }
               
@@ -147,7 +146,7 @@ namespace nspInstStuff {
             else{
             	if (ourTitleList.size() > 1) {
                   if (inst::config::deletePrompt) {
-                      if(inst::ui::mainApp->CreateShowDialog(std::to_string(ourTitleList.size()) + "inst.sd.delete_info_multi"_lang, "inst.sd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) {
+                      if(inst::ui::mainApp->CreateShowDialog(std::to_string(ourTitleList.size()) + "inst.hd.delete_info_multi"_lang, "inst.hd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) {
                           for (long unsigned int i = 0; i < ourTitleList.size(); i++) {
                               if (std::filesystem::exists(ourTitleList[i])) std::filesystem::remove(ourTitleList[i]);
                           }
@@ -155,7 +154,7 @@ namespace nspInstStuff {
                   } else inst::ui::mainApp->CreateShowDialog(std::to_string(ourTitleList.size()) + "inst.info_page.desc0"_lang, Language::GetRandomMsg(), {"common.ok"_lang}, true);
               } else {
                   if (inst::config::deletePrompt) {
-                      if(inst::ui::mainApp->CreateShowDialog(inst::util::shortenString(ourTitleList[0].filename().string(), 32, true) + "inst.sd.delete_info"_lang, "inst.sd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) if (std::filesystem::exists(ourTitleList[0])) std::filesystem::remove(ourTitleList[0]);
+                      if(inst::ui::mainApp->CreateShowDialog(inst::util::shortenString(ourTitleList[0].filename().string(), 32, true) + "inst.hd.delete_info"_lang, "inst.hd.delete_desc"_lang, {"common.no"_lang,"common.yes"_lang}, false) == 1) if (std::filesystem::exists(ourTitleList[0])) std::filesystem::remove(ourTitleList[0]);
                   } else inst::ui::mainApp->CreateShowDialog(inst::util::shortenString(ourTitleList[0].filename().string(), 42, true) + "inst.info_page.desc1"_lang, Language::GetRandomMsg(), {"common.ok"_lang}, true);
               }
             }

@@ -7,20 +7,21 @@
 #include <regex>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <string>
 #include "switch.h"
 #include "util/util.hpp"
 #include "nx/ipc/tin_ipc.h"
 #include "util/config.hpp"
 #include "util/curl.hpp"
 #include "ui/MainApplication.hpp"
-#include "util/usb_comms_awoo.h"
+#include "util/usb_comms_tinleaf.h"
 #include "util/json.hpp"
 #include "nx/usbhdd.h"
 
 namespace inst::util {
     void initApp () {
         // Seethe
-        if (!pu::IsReiNX()) pu::IsAtmosphere();
+        //if (!pu::IsReiNX()) pu::IsAtmosphere();
         if (!std::filesystem::exists("sdmc:/switch")) std::filesystem::create_directory("sdmc:/switch");
         if (!std::filesystem::exists(inst::config::appDir)) std::filesystem::create_directory(inst::config::appDir);
         inst::config::parseConfig();
@@ -29,14 +30,15 @@ namespace inst::util {
         #ifdef __DEBUG__
             nxlinkStdio();
         #endif
-        awoo_usbCommsInitialize();
-        nx::hdd::init();
+        tinleaf_usbCommsInitialize();
+
+		nx::hdd::init();
     }
 
     void deinitApp () {
-        nx::hdd::exit();
+		nx::hdd::exit();
         socketExit();
-        awoo_usbCommsExit();
+        tinleaf_usbCommsExit();
     }
 
     void initInstallServices() {
@@ -264,7 +266,7 @@ namespace inst::util {
     int getUsbState() {
         UsbState usbState = UsbState_Detached;
         usbDsGetState(&usbState);
-        return usbState;
+        return (u32)usbState;
     }
 
     void playAudio(std::string audioPath) {
@@ -300,7 +302,8 @@ namespace inst::util {
     
    std::vector<std::string> checkForAppUpdate () {
         try {
-            std::string jsonData = inst::curl::downloadToBuffer("https://api.github.com/repos/blawar/tinleaf/releases/latest", 0, 0, 1000L);
+        		std::string giturl = "https://api.github.com/repos/mrdude2478/TinWoo/releases/latest";
+            std::string jsonData = inst::curl::downloadToBuffer(giturl, 0, 0, 1000L);
             if (jsonData.size() == 0) return {};
             nlohmann::json ourJson = nlohmann::json::parse(jsonData);
             if (ourJson["tag_name"].get<std::string>() != inst::config::appVersion) {

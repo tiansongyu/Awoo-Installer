@@ -29,32 +29,45 @@ namespace inst::ui {
             tin::data::NUM_BUFFER_SEGMENTS = 128;
         }
         if (!updateFinished && (!inst::config::autoUpdate || inst::util::getIPAddress() == "1.0.0.127")) updateFinished = true;
-        /*if (!updateFinished && menuLoaded && inst::config::updateInfo.size()) {
+        
+        if (!updateFinished && menuLoaded && inst::config::updateInfo.size()) {
             updateFinished = true;
             optionsPage::askToUpdate(inst::config::updateInfo);
-        }*/
+        }
     }
 
     MainPage::MainPage() : Layout::Layout() {
-        this->SetBackgroundColor(COLOR("#670000FF"));
-        if (std::filesystem::exists(inst::config::appDir + "/background.png")) this->SetBackgroundImage(inst::config::appDir + "/background.png");
-        else this->SetBackgroundImage("romfs:/images/background.jpg");
-        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#170909FF"));
-        this->botRect = Rectangle::New(0, 659, 1280, 61, COLOR("#17090980"));
-        if (inst::config::gayMode) {
-            this->titleImage = Image::New(-113, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(367, 49, "v" + inst::config::appVersion, 22);
-        }
-        else {
+        this->SetBackgroundColor(COLOR("#000000FF"));
+        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#000000FF"));
+        this->botRect = Rectangle::New(0, 659, 1280, 61, COLOR("#000000FF"));
+        
+        //if (inst::config::gayMode) {
+        //	if (std::filesystem::exists(inst::config::appDir + "/images/Main.png")) this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/Main.png"));
+        // 	else 
+        // 		this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+        // 	if (std::filesystem::exists(inst::config::appDir + "/images/background.jpg")) this->SetBackgroundImage(inst::config::appDir + "/images/background.jpg");
+        // 	else
+        // 		this->SetBackgroundImage("romfs:/images/background.jpg");
+        // 		//this->appVersionText = TextBlock::New(1240, 680, "v" + inst::config::appVersion, 20);
+        // }
+        // else {
+        if (std::filesystem::exists(inst::config::appDir + "/images/background.jpg")) 
+            this->SetBackgroundImage(inst::config::appDir + "/images/background.jpg");
+        else
+            this->SetBackgroundImage("romfs:/images/background.jpg");
+
+        if (std::filesystem::exists(inst::config::appDir + "/images/logo.png")) 
+            this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/logo.png"));
+        else 
             this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(480, 49, "v" + inst::config::appVersion, 22);
-        }
-        this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
+        	//this->appVersionText = TextBlock::New(1200, 700, "v" + inst::config::appVersion, 10);
+        //}
+        //this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
         this->butText = TextBlock::New(10, 678, "main.buttons"_lang, 24);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
-        this->optionMenu = pu::ui::elm::Menu::New(0, 95, 1280, COLOR("#67000000"), 94, 6);
+        this->optionMenu = pu::ui::elm::Menu::New(0, 95, 1280, COLOR("#343E8700"), 94, 6);
         this->optionMenu->SetOnFocusColor(COLOR("#00000033"));
-        this->optionMenu->SetScrollbarColor(COLOR("#170909FF"));
+        this->optionMenu->SetScrollbarColor(COLOR("#1A1919FF"));
         this->installMenuItem = pu::ui::elm::MenuItem::New("main.menu.sd"_lang);
         this->installMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->installMenuItem->SetIcon("romfs:/images/icons/micro-sd.png");
@@ -66,20 +79,25 @@ namespace inst::ui {
         this->usbInstallMenuItem->SetIcon("romfs:/images/icons/usb-port.png");
         this->sigPatchesMenuItem = pu::ui::elm::MenuItem::New("main.menu.hdd"_lang);
         this->sigPatchesMenuItem->SetColor(COLOR("#FFFFFFFF"));
-        this->sigPatchesMenuItem->SetIcon("romfs:/images/icons/usb-port.png");
+        this->sigPatchesMenuItem->SetIcon("romfs:/images/icons/usb-hd.png");
         this->settingsMenuItem = pu::ui::elm::MenuItem::New("main.menu.set"_lang);
         this->settingsMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->settingsMenuItem->SetIcon("romfs:/images/icons/settings.png");
         this->exitMenuItem = pu::ui::elm::MenuItem::New("main.menu.exit"_lang);
         this->exitMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->exitMenuItem->SetIcon("romfs:/images/icons/exit-run.png");
-        if (std::filesystem::exists(inst::config::appDir + "/awoo_main.png")) this->awooImage = Image::New(410, 190, inst::config::appDir + "/awoo_main.png");
-        else this->awooImage = Image::New(410, 190, "romfs:/images/awoos/5bbdbcf9a5625cd307c9e9bc360d78bd.png");
-        this->eggImage = Image::New(410, 190, "romfs:/images/awoos/a8cb40e465dadaf9708c9b1896777ce6.png");
+
+        if (std::filesystem::exists(inst::config::appDir + "/images/character_main.png")) this->awooImage = Image::New(410, 190, inst::config::appDir + "/images/character_main.png");
+        else this->awooImage = Image::New(410, 190, "romfs:/images/character_main.png");
+
+        //if (std::filesystem::exists(inst::config::appDir + "/images/logo.png")) 
+        //this->awooImage = Image::New(0, 0, inst::config::appDir + "/images/Main.png");
+        //else this->awooImage = Image::New(0, 0, "romfs:/images/logo.png");
+        this->eggImage = Image::New(0, 0, "");
         this->Add(this->topRect);
         this->Add(this->botRect);
         this->Add(this->titleImage);
-        this->Add(this->appVersionText);
+        //this->Add(this->appVersionText);
         this->Add(this->butText);
         this->optionMenu->AddItem(this->installMenuItem);
         this->optionMenu->AddItem(this->netInstallMenuItem);
@@ -87,12 +105,15 @@ namespace inst::ui {
         this->optionMenu->AddItem(this->sigPatchesMenuItem);
         this->optionMenu->AddItem(this->settingsMenuItem);
         this->optionMenu->AddItem(this->exitMenuItem);
-        this->Add(this->optionMenu);
         this->Add(this->awooImage);
         this->Add(this->eggImage);
+        this->Add(this->optionMenu);
+
         this->awooImage->SetVisible(!inst::config::gayMode);
-        this->eggImage->SetVisible(false);
+        this->titleImage->SetVisible(!inst::config::gayMode);
         this->AddThread(mainMenuThread);
+
+
     }
 
     void MainPage::installMenuItem_Click() {
@@ -121,14 +142,14 @@ namespace inst::ui {
     }
 
     void MainPage::sigPatchesMenuItem_Click() {
-            if(nx::hdd::count() && nx::hdd::rootPath()) {
-                mainApp->sdinstPage->drawMenuItems(true, nx::hdd::rootPath());
-                mainApp->sdinstPage->menu->SetSelectedIndex(0);
-                mainApp->LoadLayout(mainApp->sdinstPage);
-            } else {
-                inst::ui::mainApp->CreateShowDialog("main.hdd.title"_lang, "main.hdd.notfound"_lang, {"common.ok"_lang}, true);
-            }    
-        }
+		if(nx::hdd::count() && nx::hdd::rootPath()) {
+			mainApp->HDinstPage->drawMenuItems(true, nx::hdd::rootPath());
+			mainApp->HDinstPage->menu->SetSelectedIndex(0);
+			mainApp->LoadLayout(mainApp->HDinstPage);
+		} else {
+			inst::ui::mainApp->CreateShowDialog("main.hdd.title"_lang, "main.hdd.notfound"_lang, {"common.ok"_lang}, true);
+		}
+    }
 
     void MainPage::exitMenuItem_Click() {
         mainApp->FadeOut();
@@ -140,10 +161,10 @@ namespace inst::ui {
     }
 
     void MainPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::Touch Pos) {
-        //if (((Down & KEY_PLUS) || (Down & KEY_MINUS) || (Down & KEY_B)) && mainApp->IsShown()) {
-        //    mainApp->FadeOut();
-        //   mainApp->Close();
-        //}
+        if (((Down & KEY_PLUS) || (Down & KEY_MINUS) || (Down & KEY_B)) && mainApp->IsShown()) {
+            mainApp->FadeOut();
+            mainApp->Close();
+        }
         if ((Down & KEY_A) || (Up & KEY_TOUCH)) {
             switch (this->optionMenu->GetSelectedIndex()) {
                 case 0:
@@ -162,12 +183,13 @@ namespace inst::ui {
                     MainPage::settingsMenuItem_Click();
                     break;
                 case 5:
-                    //MainPage::exitMenuItem_Click();
+                    MainPage::exitMenuItem_Click();
                     break;
                 default:
                     break;
             }
         }
+        
         if (Down & KEY_X) {
             this->awooImage->SetVisible(false);
             this->eggImage->SetVisible(true);

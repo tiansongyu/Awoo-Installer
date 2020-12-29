@@ -10,46 +10,50 @@
 #include "util/unzip.hpp"
 #include "util/lang.hpp"
 #include "ui/instPage.hpp"
+#include "sigInstall.hpp"
 
 #define COLOR(hex) pu::ui::Color::FromHex(hex)
 
 namespace inst::ui {
     extern MainApplication *mainApp;
 
-    std::vector<std::string> languageStrings = {"English", "日本語", "Français", "Deutsch", "Italiano", "Español", "Português", "Русский", "簡体中文","繁體中文"};
+    std::vector<std::string> languageStrings = {"English", "日本語", "Français", "Deutsch", "Italiano", "Русский"};
 
     optionsPage::optionsPage() : Layout::Layout() {
-        this->SetBackgroundColor(COLOR("#670000FF"));
-        if (std::filesystem::exists(inst::config::appDir + "/background.png")) this->SetBackgroundImage(inst::config::appDir + "/background.png");
-        else this->SetBackgroundImage("romfs:/images/background.jpg");
-        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#170909FF"));
-        this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#17090980"));
-        this->botRect = Rectangle::New(0, 660, 1280, 60, COLOR("#17090980"));
-        if (inst::config::gayMode) {
-            this->titleImage = Image::New(-113, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(367, 49, "v" + inst::config::appVersion, 22);
-        }
-        else {
+    		this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#00000080"));
+    		this->SetBackgroundColor(COLOR("#000000FF"));
+        this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#000000FF"));
+        this->botRect = Rectangle::New(0, 659, 1280, 61, COLOR("#000000FF"));
+        
+        if (std::filesystem::exists(inst::config::appDir + "/images/background.jpg")) 
+            this->SetBackgroundImage(inst::config::appDir + "/images/background.jpg");
+        else
+            this->SetBackgroundImage("romfs:/images/background.jpg");
+
+        if (std::filesystem::exists(inst::config::appDir + "/images/logo.png")) 
+            this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/logo.png"));
+        else 
             this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(480, 49, "v" + inst::config::appVersion, 22);
-        }
-        this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
+
+        //this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
         this->pageInfoText = TextBlock::New(10, 109, "options.title"_lang, 30);
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
         this->butText = TextBlock::New(10, 678, "options.buttons"_lang, 24);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), 84, (506 / 84));
         this->menu->SetOnFocusColor(COLOR("#00000033"));
-        this->menu->SetScrollbarColor(COLOR("#17090980"));
+        this->menu->SetScrollbarColor(COLOR("#1A1919FF"));
         this->Add(this->topRect);
         this->Add(this->infoRect);
         this->Add(this->botRect);
         this->Add(this->titleImage);
-        this->Add(this->appVersionText);
+        //this->Add(this->appVersionText);
         this->Add(this->butText);
         this->Add(this->pageInfoText);
         this->setMenuText();
         this->Add(this->menu);
+                        this->titleImage->SetVisible(!inst::config::gayMode);
+
     }
 
     void optionsPage::askToUpdate(std::vector<std::string> updateInfo) {
@@ -94,21 +98,28 @@ namespace inst::ui {
                 return languageStrings[3];
             case 4:
                 return languageStrings[4];
-            case 5:
-            case 14:
-                return languageStrings[5];
-            case 9:
-                return languageStrings[6];
             case 10:
-                return languageStrings[7];
-            case 6:
-                return languageStrings[8];
-            case 11:
-                return languageStrings[9];
+                return languageStrings[5];
             default:
                 return "options.language.system_language"_lang;
         }
     }
+    
+    void sigPatchesMenuItem_Click() {
+        sig::installSigPatches();
+    }
+    
+    void thememessage() {
+    	//inst::ui::mainApp->CreateShowDialog("main.theme.title"_lang, "main.theme.desc"_lang, {"common.ok"_lang}, true);
+    	int ourResult = inst::ui::mainApp->CreateShowDialog("main.theme.title"_lang, "main.theme.desc"_lang, {"common.ok"_lang, "common.cancel"_lang}, true);
+            if (ourResult != 0) {
+            	//
+            }
+            else{
+            	mainApp->FadeOut();
+            	mainApp->Close();
+            }
+		}
 
     void optionsPage::setMenuText() {
         this->menu->ClearItems();
@@ -132,10 +143,21 @@ namespace inst::ui {
         autoUpdateOption->SetColor(COLOR("#FFFFFFFF"));
         autoUpdateOption->SetIcon(this->getMenuOptionIcon(inst::config::autoUpdate));
         this->menu->AddItem(autoUpdateOption);
+        
         auto gayModeOption = pu::ui::elm::MenuItem::New("options.menu_items.gay_option"_lang);
         gayModeOption->SetColor(COLOR("#FFFFFFFF"));
         gayModeOption->SetIcon(this->getMenuOptionIcon(inst::config::gayMode));
         this->menu->AddItem(gayModeOption);
+        
+        auto useSoundOption = pu::ui::elm::MenuItem::New("options.menu_items.useSound"_lang);
+        useSoundOption->SetColor(COLOR("#FFFFFFFF"));
+        useSoundOption->SetIcon(this->getMenuOptionIcon(inst::config::useSound));
+        this->menu->AddItem(useSoundOption);
+        
+        auto SigPatch = pu::ui::elm::MenuItem::New("main.menu.sig"_lang);
+        SigPatch->SetColor(COLOR("#FFFFFFFF"));
+        this->menu->AddItem(SigPatch);
+        
         auto sigPatchesUrlOption = pu::ui::elm::MenuItem::New("options.menu_items.sig_url"_lang + inst::util::shortenString(inst::config::sigPatchesUrl, 42, false));
         sigPatchesUrlOption->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(sigPatchesUrlOption);
@@ -190,42 +212,33 @@ namespace inst::ui {
                 case 5:
                     if (inst::config::gayMode) {
                         inst::config::gayMode = false;
-                        mainApp->mainPage->awooImage->SetVisible(true);
-                        mainApp->instpage->awooImage->SetVisible(true);
-                        mainApp->instpage->titleImage->SetX(0);
-                        mainApp->instpage->appVersionText->SetX(480);
-                        mainApp->mainPage->titleImage->SetX(0);
-                        mainApp->mainPage->appVersionText->SetX(480);
-                        mainApp->netinstPage->titleImage->SetX(0);
-                        mainApp->netinstPage->appVersionText->SetX(480);
-                        mainApp->optionspage->titleImage->SetX(0);
-                        mainApp->optionspage->appVersionText->SetX(480);
-                        mainApp->sdinstPage->titleImage->SetX(0);
-                        mainApp->sdinstPage->appVersionText->SetX(480);
-                        mainApp->usbinstPage->titleImage->SetX(0);
-                        mainApp->usbinstPage->appVersionText->SetX(480);
+                        mainApp->mainPage->awooImage->SetVisible(false);
+						
                     }
                     else {
                         inst::config::gayMode = true;
-                        mainApp->mainPage->awooImage->SetVisible(false);
-                        mainApp->instpage->awooImage->SetVisible(false);
-                        mainApp->instpage->titleImage->SetX(-113);
-                        mainApp->instpage->appVersionText->SetX(367);
-                        mainApp->mainPage->titleImage->SetX(-113);
-                        mainApp->mainPage->appVersionText->SetX(367);
-                        mainApp->netinstPage->titleImage->SetX(-113);
-                        mainApp->netinstPage->appVersionText->SetX(367);
-                        mainApp->optionspage->titleImage->SetX(-113);
-                        mainApp->optionspage->appVersionText->SetX(367);
-                        mainApp->sdinstPage->titleImage->SetX(-113);
-                        mainApp->sdinstPage->appVersionText->SetX(367);
-                        mainApp->usbinstPage->titleImage->SetX(-113);
-                        mainApp->usbinstPage->appVersionText->SetX(367);
+                        mainApp->mainPage->awooImage->SetVisible(true);
                     }
-                    inst::config::setConfig();
                     this->setMenuText();
+                    thememessage();
+                    inst::config::setConfig();
                     break;
+                
                 case 6:
+                    if (inst::config::useSound) {
+                        inst::config::useSound = false;
+                    }
+                    else {
+                        inst::config::useSound = true;
+                    }
+                    this->setMenuText();
+                    inst::config::setConfig();
+                    break;
+                
+                case 7:
+                    sigPatchesMenuItem_Click();
+                    break;
+                case 8:
                     keyboardResult = inst::util::softwareKeyboard("options.sig_hint"_lang, inst::config::sigPatchesUrl.c_str(), 500);
                     if (keyboardResult.size() > 0) {
                         inst::config::sigPatchesUrl = keyboardResult;
@@ -233,7 +246,7 @@ namespace inst::ui {
                         this->setMenuText();
                     }
                     break;
-                case 7:
+                case 9:
                     languageList = languageStrings;
                     languageList.push_back("options.language.system_language"_lang);
                     rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
@@ -255,19 +268,7 @@ namespace inst::ui {
                             inst::config::languageSetting = 4;
                             break;
                         case 5:
-                            inst::config::languageSetting = 14;
-                            break;
-                        case 6:
-                            inst::config::languageSetting = 9;
-                            break;
-                        case 7:
                             inst::config::languageSetting = 10;
-                            break;
-                        case 8:
-                            inst::config::languageSetting = 6;
-                            break;
-                        case 9:
-                            inst::config::languageSetting = 11;
                             break;
                         default:
                             inst::config::languageSetting = 99;
@@ -276,7 +277,7 @@ namespace inst::ui {
                     mainApp->FadeOut();
                     mainApp->Close();
                     break;
-                case 8:
+                case 10:
                     if (inst::util::getIPAddress() == "1.0.0.127") {
                         inst::ui::mainApp->CreateShowDialog("main.net.title"_lang, "main.net.desc"_lang, {"common.ok"_lang}, true);
                         break;
@@ -288,7 +289,7 @@ namespace inst::ui {
                     }
                     this->askToUpdate(downloadUrl);
                     break;
-                case 9:
+                case 11:
                     inst::ui::mainApp->CreateShowDialog("options.credits.title"_lang, "options.credits.desc"_lang, {"common.close"_lang}, true);
                     break;
                 default:

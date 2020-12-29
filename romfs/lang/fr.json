@@ -4,28 +4,37 @@
             "sd": "Installer à partir de la carte SD",
             "net": "Installer à partir d'un LAN ou d'internet",
             "usb": "Installer à partir d'un périphèrique USB",
-            "sig": "Gérer les sigpatches",
+			"hdd": "Installer à partir d'un Disque dur USB",
+            "sig": "Gérer les patchs de signatures",
             "set": " Paramètres",
             "exit": " Quitter"
         },
+		"theme": {
+            "title": "Use Theme",
+            "desc": "Appuyez sur OK pour quitter Tinwoo ou sur Annuler pour continuer.\n\nLes thèmes s'activeront la prochaine fois que vous lancerez Tinwoo."
+		},
+		"hdd": {
+			"title": "Disque dur USB",
+			"notfound": "Le disque dur USB n'est pas connecté."
+		},
         "net": {
             "title": "Connection au réseau impossible",
-            "desc": "Vérifiez que le mode avion est désactivé et que vous êtes connecté à un réseau local."
+            "desc": "Vérifiez  que le mode avion est désactivé et que vous êtes connecté à un réseau local."
         },
         "usb": {
             "warn": {
                 "title": "Avertissement!",
-                "desc": "L'installation USB peut ne \"pas fonctionner\" sur certains appareils et certaines configurations.\nSi vous rencontrez des problèmes avec l'installation USB, ne vous arrachez pas les cheveux !\n\n Il est conseillé d'utiliser NS-USBloader pour l'installation USB. Pour installer à distance, préfèrez les modes \nLAN/Internet, en particulier si vous utilisez un adaptateur ethernet!\n\nVous avez été prévenu...",
+                "desc": "L'installation USB peut ne \"pas fonctionner\" sur certains appareils et certaines configurations.\nSi vous rencontrez des problèmes avec l'installation USB, ne vous arrachez pas\nles cheveux ! Il est conseillé d'utiliser NS-USBloader pour l'installation USB. Pour installer à distance, préfèrez les modes \nLAN/Internet, en particulier \nsi vous utilisez un adaptateur ethernet!\n\nVous avez été prévenu...",
                 "opt1": "Ne plus m'avertir"
             },
             "error": {
-                "title": "Aucune connection USB détectée",
-                "desc": "Branchez un appareil compatible pour installer via le port USB"
+                "title": "Aucune connection USB détéctée",
+                "desc": "Brancher un appareil compatible pour installer via le port USB"
             }
         },
         "applet": {
             "title": "Le mode Applet n'est pas compatible",
-            "desc": "Vous pouvez rencontrer des problèmes en utilisant Tinleaf Installer en mode Applet.\n\n Si vous avez des problèmes, veuillez lancer Tinleaf en mode 'non-Applet' (Maintenez R pendant le démarrage d'un jeu)!"
+            "desc": "Vous pouvez rencontrer des problèmes en utilisant TinWoo Installer en mode Applet. Si vous \navez des problèmes, veuillez lancer TinWoo en mode 'non-Applet'\n (Maintenez R pendant le démarrage d'un jeu)!"
         },
         "buttons": "\ue0e0 Select    \ue0e1 Quitter"
     },
@@ -33,7 +42,7 @@
         "net": {
             "help": {
                 "title": "Aide",
-                "desc": "Les fichiers peuvent être installés à distance depuis vos autres périphériques à l'aide d'outils\ntels que NS-USBloader en mode Tinfoil.\n\n Pour envoyer des fichiers à votre Switch, ouvrez l'un de ces logiciels\n sur votre PC ou votre appareil mobile, entrez\nl'adresse IP de votre Switch (indiquée à l'écran), sélectionnez vos fichiers, puis téléchargez-les\nsur votre console ! Si le logiciel que vous utilisez ne vous permet pas de sélectionner des types de fichiers\nspécifiques, essayez de modifier l'extension en quelque chose qu'il accepte.\nTinleaf Installer ne se soucie pas des extensions de fichiers lors des installations via le net !\n\nSi vous ne comprenez pas, copiez simplement vos fichiers sur votre carte SD et essayez\nl'option \"Installer à partir de la carte SD\" depuis le menu principal!"
+                "desc": "Les fichiers peuvent être installés à distance depuis vos autres périphériques à l'aide d'outils\ntels que NS-USBloader en mode Tinfoil. Pour envoyer des fichiers à votre Switch, ouvrez l'un\nde ces logiciels sur votre PC ou votre appareil mobile, entrez\nl'adresse IP de votre Switch (indiquée à l'écran), sélectionnez vos fichiers, puis téléchargez-les\nsur votre console ! Si le logiciel que vous utilisez ne vous permet pas de sélectionner des types de fichiers\nspécifiques, essayez de modifier l'extension en quelque chose qu'il accepte.\nTinWoo Installer ne se soucie pas des extensions de fichiers lors des installations via le net !\n\nSi vous n'arrivez pas à comprendre, copiez simplement vos fichiers sur votre carte SD et essayez\nl'option \"Installer à partir de la carte SD\" depuis le menu principal!"
             },
             "src": {
                 "title": "D'où voulez-vous installer ?",
@@ -70,10 +79,22 @@
             "delete_desc": "Les fichiers originaux ne sont plus nécessaires une fois qu'ils ont été installés.",
             "buttons": "\ue0e0 Sélectionnez un fichier    \ue0e3 Tout sélectionner    \ue0ef Installer un/des fichier(s)    \ue0e2 Aide    \ue0e1 Annuler"
         },
+        "hd": {
+            "help": {
+                "title": "Aide",
+                "desc": "Copier votre NSP, NSZ, XCI, ou XCZ files dans votre disque dur, parcourir et\nsélectionnez le fichier que vous voulez installer, puis appuyer sur la touche [+]."
+            },
+            "top_info": "Sélectionnez les fichiers que vous voulez installer, puis appuyez sur la touche [+] !",
+            "source_string": " à partir du disque dur",
+            "delete_info": " Installeer\nSupprimer le fichier à partir du disque dur ?",
+            "delete_info_multi": " fichiers installés avec succès !\nLes supprimer du disque dur ?",
+            "delete_desc": "Les fichiers originaux ne sont plus nécessaires une fois qu'ils ont été installés",
+            "buttons": "\ue0e0 Sélectionnez un fichier    \ue0e3 Tout sélectionner    \ue0ef Installer un/des fichier(s)    \ue0e2 Aide    \ue0e1 Annuler"
+        },
         "usb": {
             "help": {
                 "title": "Aide",
-                "desc": "Les fichiers peuvent être installés à partir du port USB depuis vos autres périphériques à l'aide d'outils tels que\nNS-USBloader en mode Tinfoil. Pour envoyer des fichiers à votre Switch, ouvrez un\nde ces logiciels sur votre PC, sélectionnez vos fichiers, puis téléchargez-les\nsur votre console !\n\nMalheureusement, les installations USB nécessitent une configuration spécifique sur certaines\nplates-formes, et peuvent parfois être assez buggées. Si vous n'arrivez pas à comprendre,\nessayez les installations LAN/internet, ou copiez vos fichiers sur votre carte SD et\nessayezl'option \"Installer à partir de la carte SD\" depuis le menu principal!"
+                "desc": "Les fichiers peuvent être installés à partir du port USB depuis vos autres périphériques à l'aide d'outils\ntels que NS-USBloader en mode Tinfoil. Pour envoyer des fichiers à votre Switch, ouvrez un\nde ces logiciels sur votre PC, sélectionnez vos fichiers, puis téléchargez-les\nsur votre console !\n\nMalheureusement, les installations USB nécessitent une configuration spécifique sur certaines\nplates-formes, et peuvent parfois être assez buggées. Si vous n'arrivez pas à comprendre,\nessayez les installations LAN/internet, ou copiez vos fichiers sur votre carte SD et\nessayezl'option \"Installer à partir de la carte SD\" depuis le menu principal!"
             },
             "top_info": "Connexion USB réussie ! En attente de l'envoi de la liste des fichiers...",
             "top_info2": "Sélectionnez les fichiers que vous voulez installer par USB, puis appuyez sur le bouton Plus !",
@@ -103,7 +124,7 @@
         },
         "nca_verify": {
             "title": "Signature NCA invalide détectée!",
-            "desc": "Les logiciels incorrectement signés ne doivent être installés qu'à partir de\nsources dignes de confiance. Les fichiers contenant des repacks de cartouches et des DLC\nafficheront toujours cet avertissement. Vous pouvez désactiver cette vérification dans les paramètres de Tinleaf Installer.\n\nEtes-vous sûr de vouloir continuer l'installation ?",
+            "desc": "Les logiciels incorrectement signés ne doivent être installés qu'à partir de\nsources dignes de confiance. Les fichiers contenant des repacks de cartouches et des DLC\nafficheront toujours cet avertissement. Vous pouvez désactiver cette vérification dans les paramètres de TinWoo Installer.\n\nEtes-vous sûr de vouloir continuer l'installation ?",
             "opt1": "Oui, je comprends les risques",
             "error": "Le NCA demandé n'est pas correctement signé: "
         },
@@ -121,14 +142,14 @@
         "install": "Installer",
         "uninstall": "Désinstaller",
         "update": "Mettre à jour",
-        "version_text": "Vous avez actuellement des sigpatches installés pour la version HOS ",
-        "title0": "Installer les sigpatches ?",
-        "desc0": "Les sigpatches sont nécessaires pour installer et utiliser les logiciels officiels.",
+        "version_text": "Vous avez actuellement des patches de signature installés pour la version HOS ",
+        "title0": "Installer les patchs de signature ?",
+        "desc0": "Les patchs de signature sont nécessaires pour installer et utiliser les logiciels officiels.",
         "backup_failed": "Impossible de sauvegarder le fichier Patches.ini d'Hekate ! Installer quand même ?",
         "backup_failed_desc": "Si vous n'utilisez pas Hekate, vous pouvez ignorer cet avertissement.",
-        "download_failed": "Impossible de télécharger les sigpatches",
-        "download_failed_desc": "Vous avez peut-être fourni une source invalide dans les paramètres de l'installateur Tinleaf,\nou l'hôte est peut-être juste en panne en ce moment.",
-        "version_text2": "Vos sigpatches ont été mis à jour pour la version d'HOS ",
+        "download_failed": "Impossible de télécharger les patchs de signature",
+        "download_failed_desc": "Vous avez peut-être fourni une source invalide dans les paramètres de l'installateur TinWoo,\nou l'hôte est peut-être juste en panne en ce moment.",
+        "version_text2": "Vos patchs de signature ont été mis à jour pour la version d'HOS ",
         "install_complete": "Installation complète !",
         "complete_desc": "Redémarrez votre console pour appliquer",
         "restart": "Redémarrer",
@@ -136,9 +157,9 @@
         "extract_failed": "Impossible d'extraire les fichiers !",
         "restore_failed": "Impossible de restaurer le fichier original patches.ini d'Hekate ! Continuer à désinstaller ?",
         "uninstall_complete": "Désinstallation complète",
-        "remove_failed": "Impossible de supprimer les sigpatches",
+        "remove_failed": "Impossible de supprimer les patchs de signature",
         "remove_failed_desc": "Les fichiers ont peut-être été renommés ou supprimés",
-        "generic_error": "Echec de l'installation des sigpatches !"
+        "generic_error": "Echec de l'installation des patchs de signature !"
     },
     "options": {
         "menu_items": {
@@ -146,43 +167,44 @@
             "nca_verify": "Vérifier les signatures des NCA avant l'installation",
             "boost_mode": "Activer le  \"boost mode\" pendant l'installation",
             "ask_delete": "Demande de suppression des fichiers originaux après l'installation",
-            "auto_update": "Vérifier les mises à jour de l'installateur Tinleaf automatiquement",
-            "gay_option": "Enlever la catgirl dans le menu",
-            "sig_url": "Sigpatches URL: ",
+            "auto_update": "Vérifier les mises à jour de l'installateur TinWoo automatiquement",
+            "gay_option": "Utiliser le thème",
+            "useSound": "Use sound notifications during installs",
+            "sig_url": "Patchs de signatures URL: ",
             "language": "Langage: ",
-            "check_update": "Vérifiez les mises à jour de l'installateur Tinleaf",
+            "check_update": "Vérifiez les mises à jour de l'installateur TinWoo",
             "credits": "Crédits"
         },
         "nca_warn": {
             "title": "Avertissement!",
-            "desc": "Certains fichiers installables peuvent contenir des contenus malveillants ! Ne désactivez cette fonction\nque si vous êtes absolument certain que le logiciel que vous allez installer est digne de confiance !\n\nVoulez-vous toujours désactiver la vérification de la signature des NCA ?",
-            "opt1": "Oui, je suis inconscient et je veux brick ma Switch"
+            "desc": "Certains fichiers installables peuvent contenir des contenus malveillants ! Ne désactivez cette fonction\nque si vous êtes absolument certain que le logiciel que vous allez installer est\ndigne de confiance !\n\nVoulez-vous toujours désactiver la vérification de la signature des NCA ?",
+            "opt1": "Oui, je veux brick ma Switch"
         },
-        "sig_hint": "Entrez l'URL pour obtenir les sigpatches",
+        "sig_hint": "Entrez l'URL pour obtenir les patches de signature",
         "update": {
             "title": "Mise à jour disponible",
-            "desc0": "Tinleaf Installer ",
+            "desc0": "TinWoo Installer ",
             "desc1": " est disponible dès maintenant ! Prêt à mettre à jour ?",
             "opt0": "Mise à jour",
-            "top_info": "Mise à jour de l'installateur Tinleaf ",
-            "bot_info": "Téléchargement de l'installateur Tinleaf ",
-            "bot_info2": "Extraction de l'installateur Tinleaf ",
+            "top_info": "Mise à jour de l'installateur TinWoo ",
+            "bot_info": "Téléchargement de l'installateur TinWoo ",
+            "bot_info2": "Extraction de l'installateur TinWoo ",
             "complete": "Mise à jour complète !",
             "failed": "La mise à jour a échoué !",
             "end_desc": "Le logiciel sera maintenant fermé.",
             "title_check_fail": "Aucune mise à jour trouvée",
-            "desc_check_fail": "Vous êtes sur la dernière version de Tinleaf Installer !"
+            "desc_check_fail": "Vous êtes sur la dernière version de TinWoo Installer !"
         },
         "credits": {
             "title": "Merci aux personnes suivantes !",
-            "desc": "- HookedBehemoth pour BEAUCOUP de contributions\n- Adubbz et d'autres contributeurs pour Tinfoil\n- XorTroll pour Plutonium et Goldleaf\n- blawar (étrangleur de femme) et nicoboss pour le support des NSZ\n- Les personnes aimables du Discord AtlasNX (ou du moins certains d'entre eux)\n- Les gens aussi aimables du Discord RetroNX (sans participation directe)\n- namako8982 pour l'art Momiji \n- TheXzoron pour avoir été un baka"
+            "desc": "TinWoo - MrDude\nTinleaf - BlaWar\nAwoo Installer - Huntereb\nHard Drive Support - DarkMatterCore\n\n\nhttps://github.com/Huntereb/Awoo-Installer\nhttps://github.com/blawar/tinleaf\nhttps://github.com/DarkMatterCore/libusbhsfs\n\nThanks for testing - LyuboA"
         },
         "language": {
-            "title": "Sélectionnez la langue de Tinleaf Installer",
+            "title": "Sélectionnez la langue de TinWoo Installer",
             "desc": "Le logiciel sera fermé après avoir changé de langue. Appuyez sur B pour annuler.",
             "system_language": "Système"
         },
-        "title": "Modifiez les paramètres de Tinleaf Installler !",
+        "title": "Modifiez les paramètres de TinWoo Installler !",
         "buttons": "\ue0e0 Sélectionner/Modifier    \ue0e1 Annuler"
     },
     "common": {

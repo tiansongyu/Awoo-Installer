@@ -1,9 +1,9 @@
 #include <iostream>
 #include <switch.h>
 #include <filesystem>
-#include <pu/Plutonium>
 #include "util/lang.hpp"
 #include "util/config.hpp"
+#include <pu/Plutonium>
 
 namespace Language {
     json lang;
@@ -37,13 +37,10 @@ namespace Language {
                 break;
             case 5:
             case 14:
-                languagePath = "romfs:/lang/es-419.json";
+                languagePath = "romfs:/lang/es.json";
                 break;
             case 6:
-            case 15:
                 languagePath = "romfs:/lang/zh-CN.json";
-                // the default font will miss some chinese character, so use a chinese font (simplified)
-                pu::ui::render::SetDefaultFontFromShared(pu::ui::render::SharedFont::ChineseSimplified);
                 break;
             case 7:
                 languagePath = "romfs:/lang/ko.json";
@@ -59,10 +56,9 @@ namespace Language {
                 break;
             case 11:
                 languagePath = "romfs:/lang/zh-TW.json";
-                // the default font will miss some chinese character, so use a chinese font (traditional)
-                pu::ui::render::SetDefaultFontFromShared(pu::ui::render::SharedFont::ChineseTraditional);
                 break;
             default:
+                pu::ui::render::SetDefaultFontFromShared(pu::ui::render::SharedFont::ChineseSimplified);
                 languagePath = "romfs:/lang/en.json";
         }
         if (std::filesystem::exists(languagePath)) ifs = std::ifstream(languagePath);

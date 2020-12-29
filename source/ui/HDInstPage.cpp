@@ -1,8 +1,8 @@
 #include <filesystem>
 #include "ui/MainApplication.hpp"
 #include "ui/mainPage.hpp"
-#include "ui/sdInstPage.hpp"
-#include "sdInstall.hpp"
+#include "ui/HDInstPage.hpp"
+#include "HDInstall.hpp"
 #include "util/util.hpp"
 #include "util/config.hpp"
 #include "util/lang.hpp"
@@ -12,7 +12,7 @@
 namespace inst::ui {
     extern MainApplication *mainApp;
 
-    sdInstPage::sdInstPage() : Layout::Layout() {
+    HDInstPage::HDInstPage() : Layout::Layout() {
         this->infoRect = Rectangle::New(0, 95, 1280, 60, COLOR("#00000080"));
         this->SetBackgroundColor(COLOR("#000000FF"));
         this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#000000FF"));
@@ -27,15 +27,36 @@ namespace inst::ui {
             this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/logo.png"));
         else 
             this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
-
+            /*
+    		if (inst::config::gayMode) {
+    			if
+    				(std::filesystem::exists(inst::config::appDir + "/images/Hd.png")) this->titleImage = Image::New(0, 0, (inst::config::appDir + "/images/Hd.png"));
+    			else 
+    				this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+    			
+    			if
+    				(std::filesystem::exists(inst::config::appDir + "/images/background.jpg")) this->SetBackgroundImage(inst::config::appDir + "/images/background.jpg");
+    			else
+    				this->SetBackgroundImage("romfs:/images/background.jpg");
+    				this->appVersionText = TextBlock::New(0, 0, "", 0);
+            }
+        
+        else {
+        			this->SetBackgroundImage("romfs:/images/background.jpg");
+        			this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+              this->appVersionText = TextBlock::New(0, 0, "", 0);
+              }*/
         //this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
-        this->pageInfoText = TextBlock::New(10, 109, "inst.sd.top_info"_lang, 30);
+        this->pageInfoText = TextBlock::New(10, 109, "inst.hd.top_info"_lang, 30);
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
-        this->butText = TextBlock::New(10, 678, "inst.sd.buttons"_lang, 24);
+        this->butText = TextBlock::New(10, 678, "inst.hd.buttons"_lang, 24);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
         this->menu = pu::ui::elm::Menu::New(0, 156, 1280, COLOR("#FFFFFF00"), 84, (506 / 84));
         this->menu->SetOnFocusColor(COLOR("#00000033"));
         this->menu->SetScrollbarColor(COLOR("#1A1919FF"));
+
+       // this->awooImage->SetVisible(!inst::config::gayMode);
+
         this->Add(this->topRect);
         this->Add(this->infoRect);
         this->Add(this->botRect);
@@ -44,11 +65,11 @@ namespace inst::ui {
         this->Add(this->butText);
         this->Add(this->pageInfoText);
         this->Add(this->menu);
-                                this->titleImage->SetVisible(!inst::config::gayMode);
+        this->titleImage->SetVisible(!inst::config::gayMode);
 
     }
 
-    void sdInstPage::drawMenuItems(bool clearItems, std::filesystem::path ourPath) {
+    void HDInstPage::drawMenuItems(bool clearItems, std::filesystem::path ourPath) {
         if (clearItems) this->selectedTitles = {};
 		this->currentDir = ourPath;
 
@@ -98,7 +119,7 @@ namespace inst::ui {
         }
     }
 
-    void sdInstPage::followDirectory() {
+    void HDInstPage::followDirectory() {
         int selectedIndex = this->menu->GetSelectedIndex();
         int dirListSize = this->ourDirectories.size();
 
@@ -115,7 +136,7 @@ namespace inst::ui {
         }
     }
 
-    void sdInstPage::selectNsp(int selectedIndex) {
+    void HDInstPage::selectNsp(int selectedIndex) {
         int dirListSize = this->ourDirectories.size();
         dirListSize++;
 
@@ -131,16 +152,16 @@ namespace inst::ui {
         this->drawMenuItems(false, currentDir);
     }
 
-    void sdInstPage::startInstall() {
+    void HDInstPage::startInstall() {
         int dialogResult = -1;
         if (this->selectedTitles.size() == 1) {
             dialogResult = mainApp->CreateShowDialog("inst.target.desc0"_lang + inst::util::shortenString(std::filesystem::path(this->selectedTitles[0]).filename().string(), 32, true) + "inst.target.desc1"_lang, "common.cancel_desc"_lang, {"inst.target.opt0"_lang, "inst.target.opt1"_lang}, false);
         } else dialogResult = mainApp->CreateShowDialog("inst.target.desc00"_lang + std::to_string(this->selectedTitles.size()) + "inst.target.desc01"_lang, "common.cancel_desc"_lang, {"inst.target.opt0"_lang, "inst.target.opt1"_lang}, false);
         if (dialogResult == -1) return;
-        nspInstStuff::installNspFromFile(this->selectedTitles, dialogResult);
+        	nspInstStuff_B::installNspFromFile(this->selectedTitles, dialogResult);
     }
 
-    void sdInstPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::Touch Pos) {
+    void HDInstPage::onInput(u64 Down, u64 Up, u64 Held, pu::ui::Touch Pos) {
         if (Down & KEY_B) {
             mainApp->LoadLayout(mainApp->mainPage);
         }
@@ -163,7 +184,7 @@ namespace inst::ui {
             }
         }
         if ((Down & KEY_X)) {
-            inst::ui::mainApp->CreateShowDialog("inst.sd.help.title"_lang, "inst.sd.help.desc"_lang, {"common.ok"_lang}, true);
+            inst::ui::mainApp->CreateShowDialog("inst.hd.help.title"_lang, "inst.hd.help.desc"_lang, {"common.ok"_lang}, true);
         }
         if (Down & KEY_PLUS) {
             if (this->selectedTitles.size() == 0 && this->menu->GetItems()[this->menu->GetSelectedIndex()]->GetIcon() == "romfs:/images/icons/checkbox-blank-outline.png") {

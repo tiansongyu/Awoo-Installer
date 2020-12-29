@@ -2,12 +2,21 @@
     "main":{
         "menu": {
             "sd": "SDカードからインストール",
-            "net": "ネットワーク経由でインストール",
+            "net": "LANまたはインターネット経由でインストール",
             "usb": "USB経由でインストール",
+			"hdd": "Install over USB HDD",
             "sig": "署名パッチを管理する",
             "set": "設定",
             "exit": "終了"
         },
+		"theme": {
+            "title": "Use Theme",
+            "desc": "Press OK to quit Tinwoo or Cancel to continue.\n\nThemes will activate the next time you start Tinwoo."
+		},
+		"hdd": {
+			"title": "USB HDD",
+			"notfound": "USB HDD is not connected."
+		},
         "net": {
             "title": "ネットワーク接続は利用できません",
             "desc": "機内モードが無効になっていて、ローカルネットワークに接続していることを確認してください。"
@@ -25,7 +34,7 @@
         },
         "applet": {
             "title": "アプレットモードはサポートされていません",
-            "desc": "アプレットモードでTinleaf Installerを使用すると問題が発生する場合があります。\n問題が発生した場合は、インストール済みのタイトルでTinleaf Installerを実行するように切り替えてください\n(ゲームの開始中にRを押したままにしてください)!"
+            "desc": "アプレットモードでTinWooを使用すると問題が発生する場合があります。\n問題が発生した場合は、インストール済みのタイトルでTinWooを実行するように切り替えてください\n(ゲームの開始中にRを押したままにしてください)!"
         },
         "buttons": "\ue0e0 選択    \ue0e1 終了"
     },
@@ -33,7 +42,7 @@
         "net": {
             "help": {
                 "title": "ヘルプ",
-                "desc": "TinfoilモードのNS-USBloaderなどのツールを使用して、他のデバイスからファイルをリモートでインストールできます。\nスイッチにファイルを送信するには、PCまたはモバイルデバイスでこれらのソフトウェアのいずれかを開き、\nスイッチのIPアドレス（画面に表示）を入力し、ファイルを選択して、コンソールにアップロードします！\n使用しているソフトウェアで特定のファイルタイプを選択できない場合は、\n拡張子の名前を受け入れ可能なものに変更してください。\nTinleaf Installerはネット経由のインストール中にファイル拡張子を気にしません！\n\n分からない場合は、ファイルをSDカードにコピーして\nメインメニューの[SDカードからインストール]オプションを試してください。"
+                "desc": "TinfoilモードのNS-USBloaderなどのツールを使用して、他のデバイスからファイルをリモートでインストールできます。\nスイッチにファイルを送信するには、PCまたはモバイルデバイスでこれらのソフトウェアのいずれかを開き、\nスイッチのIPアドレス（画面に表示）を入力し、ファイルを選択して、コンソールにアップロードします！\n使用しているソフトウェアで特定のファイルタイプを選択できない場合は、\n拡張子の名前を受け入れ可能なものに変更してください。\nTinWooはネット経由のインストール中にファイル拡張子を気にしません！\n\n分からない場合は、ファイルをSDカードにコピーして\nメインメニューの[SDカードからインストール]オプションを試してください。"
             },
             "src": {
                 "title": "どこからインストールしますか？",
@@ -70,6 +79,18 @@
             "delete_desc": "元のファイルはインストール後に不要になりました",
             "buttons": "\ue0e0 ファイルを選択    \ue0e3 すべて選択    \ue0ef ファイルをインストール    \ue0e2 ヘルプ    \ue0e1 キャンセル"
         },
+        "hd": {
+            "help": {
+                "title": "Help",
+                "desc": "Copy your NSP, NSZ, XCI, or XCZ files to your hard drive, browse to and\nselect the ones you want to install, then press the Plus button."
+            },
+            "top_info": "Select the files you want to install, then press the Plus button!",
+            "source_string": " from hard drive",
+            "delete_info": " installed\nDelete it from the hard drive?",
+            "delete_info_multi": " files installed successfully!\nDelete them from the hard drive?",
+            "delete_desc": "The original files aren't needed anymore after they've been installed",
+            "buttons": "\ue0e0 Select File    \ue0e3 Select All    \ue0ef Install File(s)    \ue0e2 Help    \ue0e1 Cancel"
+        },
         "usb": {
             "help": {
                 "title": "ヘルプ",
@@ -103,7 +124,7 @@
         },
         "nca_verify": {
             "title": "無効なNCA署名が検出されました!",
-            "desc": "不適切に署名されたソフトウェアは、信頼できるソースからのみインストールする必要があります。\nカートリッジの再梱包とDLCロック解除を含むファイルには、常にこの警告が表示されます。\nTinleaf Installerの設定でこのチェックを無効にできます。\n\nインストールを続行してもよろしいですか？",
+            "desc": "不適切に署名されたソフトウェアは、信頼できるソースからのみインストールする必要があります。\nカートリッジの再梱包とDLCロック解除を含むファイルには、常にこの警告が表示されます。\nTinWooの設定でこのチェックを無効にできます。\n\nインストールを続行してもよろしいですか？",
             "opt1": "はい、リスクを理解しています",
             "error": "要求されたNCAは適切に署名されていません: "
         },
@@ -127,7 +148,7 @@
         "backup_failed": "Hekate patch.iniをバックアップできませんでした！それでもインストールしますか?",
         "backup_failed_desc": "Hekateを使用しない場合、この警告は無視できます。",
         "download_failed": "署名パッチをダウンロードできませんでした",
-        "download_failed_desc": "Tinleaf Installerの設定で無効なソースを指定したか、\nホストが現在ダウンしている可能性があります。",
+        "download_failed_desc": "TinWooの設定で無効なソースを指定したか、\nホストが現在ダウンしている可能性があります。",
         "version_text2": "署名パッチがHOSバージョンまで更新されました ",
         "install_complete": "インストール完了!",
         "complete_desc": "本体を再起動して適用します",
@@ -145,12 +166,13 @@
             "ignore_firm": "タイトルに必要な最小ファームウェアバージョンを無視する",
             "nca_verify": "インストール前にNCA署名を検証する",
             "boost_mode": "インストール中に「ブーストモード」を有効にする",
-            "ask_delete": "インストール後に元のファイルを削除するか尋ねる",
-            "auto_update": "Tinleaf Installerのアップデートを自動的に確認する",
-            "gay_option": "絵を非表示にする",
+            "ask_delete": "インストール後に元のファイルを削除する",
+            "auto_update": "TinWooのアップデートを自動的に確認する",
+            "gay_option": "テーマを使用する",
+            "useSound": "Use sound notifications during installs",
             "sig_url": "署名パッチのソースURL: ",
             "language": "言語: ",
-            "check_update": "Tinleaf Installerのアップデートを確認",
+            "check_update": "TinWoo Installerのアップデートを確認",
             "credits": "クレジット"
         },
         "nca_warn": {
@@ -161,28 +183,28 @@
         "sig_hint": "署名パッチを取得するURLを入力します",
         "update": {
             "title": "更新可能",
-            "desc0": "Tinleaf Installer ",
+            "desc0": "TinWoo Installer ",
             "desc1": " 現在入手可能です！更新する準備ができましたか?",
             "opt0": "アップデート",
-            "top_info": "Tinleaf Installerを更新 ",
-            "bot_info": "Tinleaf Installerをダウンロード中 ",
-            "bot_info2": "Tinleaf Installerを展開中 ",
+            "top_info": "TinWoo Installerを更新 ",
+            "bot_info": "TinWoo Installerをダウンロード中 ",
+            "bot_info2": "TinWoo Installerを展開中 ",
             "complete": "更新完了!",
             "failed": "更新失敗!",
             "end_desc": "これでソフト​​ウェアが閉じられます。",
             "title_check_fail": "更新が見つかりません",
-            "desc_check_fail": "既にTinleaf Installerの最新バージョンを使用しています!"
+            "desc_check_fail": "既にTinWoo Installerの最新バージョンを使用しています!"
         },
         "credits": {
             "title": "以下の方々に感謝します!",
-            "desc": "- HookedBehemoth for A LOT of contributions\n- Adubbz and other contributors for Tinfoil\n- XorTroll for Plutonium and Goldleaf\n- blawar (wife strangulator) and nicoboss for NSZ support\n- The kind folks at the AtlasNX Discuck (or at least some of them)\n- The also kind folks at the RetroNX Discuck (of no direct involvement)\n- namako8982 for the Momiji art\n- TheXzoron for being a baka"
+            "desc": "TinWoo - MrDude\nTinleaf - BlaWar\nAwoo Installer - Huntereb\nHard Drive Support - DarkMatterCore\n\n\nhttps://github.com/Huntereb/Awoo-Installer\nhttps://github.com/blawar/tinleaf\nhttps://github.com/DarkMatterCore/libusbhsfs\n\nThanks for testing - LyuboA"
         },
         "language": {
-            "title": "Tinleaf Installerの言語を選択",
+            "title": "TinWoo Installerの言語を選択",
             "desc": "言語を変更した後、ソフトウェアは閉じられます。 Bを押してキャンセルします。",
-            "system_language": "システム"
+            "system_language": "システムのデフォルト"
         },
-        "title": "Tinleaf Installerの設定を変更する",
+        "title": "TinWoo Installerの設定を変更する",
         "buttons": "\ue0e0 選択/変更    \ue0e1 キャンセル"
     },
     "common": {
